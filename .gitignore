@@ -1,0 +1,19 @@
+.DS_Store
+.idea/*
+.vscode
+
+node_modules/
+yarn.lock/
+build
+
+# Database volumes
+database/postgres/
+database/mongo/
+database/*.sqlite
+
+# Coverage files
+.nyc_output
+/test/coverage
+
+# Temporary files
+tmp/
