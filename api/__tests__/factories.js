@@ -9,22 +9,4 @@ factory.define("User", User, {
   password: faker.internet.password(),
 });
 
-factory.define("Car", Car, {
-  brand: "Ford",
-  model: "AWS",
-  year: 2018,
-  fuel: "DIESEL",
-  color: "white",
-  price: 100000.0,
-});
-
-// factory.define("Car", Car, {
-//   brand: faker.name.findName(),
-//   model: faker.name.findName(),
-//   year: 2018,
-//   fuel: faker.vehicle.fuel(),
-//   color: faker.commerce.color(),
-//   price: faker.commerce.price(),
-// });
-
 module.exports = factory;

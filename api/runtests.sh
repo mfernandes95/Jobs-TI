@@ -1,1 +1,1 @@
-docker exec -i node_carsapi /bin/sh -c "yarn test"
+docker exec -i node_jobsTi /bin/sh -c "yarn test"

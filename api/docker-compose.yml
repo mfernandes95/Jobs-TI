@@ -3,14 +3,14 @@ version: "3"
 services:
   db_postgres:
     networks:
-      - carsapi
+      - jobsTi
     restart: on-failure
     image: postgres:12.1-alpine
-    container_name: "postgres_carsapi"
+    container_name: "postgres_jobsTi"
     environment:
       - POSTGRES_USER=docker
       - POSTGRES_PASSWORD:docker
-      - POSTGRES_DB=carsapi
+      - POSTGRES_DB=jobsTi
     volumes:
       - "./src/database/postgres:/var/lib/postgresql/data"
     ports:
@@ -19,12 +19,12 @@ services:
   api_node:
     build: .
     networks:
-      - carsapi
+      - jobsTi
     links:
       - db_postgres
     depends_on:
       - db_postgres
-    container_name: "node_carsapi"
+    container_name: "node_jobsTi"
     volumes:
       - .:/usr/app
     ports:
@@ -33,4 +33,4 @@ services:
     env_file: .dockerenv
 
 networks:
-  carsapi:
+  jobsTi:

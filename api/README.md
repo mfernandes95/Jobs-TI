@@ -21,7 +21,7 @@ https://www.getpostman.com/collections/b491cefa52cdc5245e07
 ##### NOT STABLE
 
 ```bash
-docker exec -it node_carsapi /bin/sh
+docker exec -it node_jobsTi /bin/sh
 
 yarn test
 ```
