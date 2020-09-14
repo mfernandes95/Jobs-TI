@@ -21,6 +21,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
+  // User.associate = function (models) {
+  //   User.belongsTo(models.Employer, { foreignKey: "user_id", as: "employer" });
+  // };
+
   User.prototype.checkPassword = function (password) {
     return bcrypt.compare(password, this.password_hash);
   };
