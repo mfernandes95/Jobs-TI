@@ -7,7 +7,7 @@ const UserController = require("./app/controllers/UserController");
 const EmployerController = require("./app/controllers/EmployerController");
 
 routes.post("/sessions", SessionController.store);
-routes.post("/verifyemail", UserController.verifyEmail);
+routes.post("/verifyemails", UserController.verifyEmail);
 
 routes.post("/employers", EmployerController.store);
 
