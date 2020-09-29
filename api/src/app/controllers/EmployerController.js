@@ -26,18 +26,18 @@ class EmployerController {
     try {
       console.log("reqq", req.userId);
       const employee = await Employer.findOne({
-        where: { id: req.userId },
+        where: { user_id: req.userId },
         // order: ["id"],
         // attributes: ["id", "brand", "model", "year", "fuel", "color", "price"],
         // limit: limit,
         // offset: (page - 1) * limit,
-        include: [
-          {
-            model: User,
-            as: "user",
-            attributes: ["id", "name", "email"],
-          },
-        ],
+        // include: [
+        //   {
+        //     model: User,
+        //     as: "user",
+        //     attributes: ["id", "email"],
+        //   },
+        // ],
       });
 
       console.log(employee);

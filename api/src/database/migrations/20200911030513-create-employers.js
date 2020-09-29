@@ -16,6 +16,10 @@ module.exports = {
         onDelete: "SET NULL",
         allowNull: false,
       },
+      employee_name: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       email: {
         type: Sequelize.STRING,
         unique: true,
@@ -24,10 +28,6 @@ module.exports = {
       cpf: {
         type: Sequelize.STRING,
         // unique: true,
-        allowNull: false,
-      },
-      employee: {
-        type: Sequelize.STRING,
         allowNull: false,
       },
       uf: {

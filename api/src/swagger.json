@@ -2,8 +2,8 @@
   "openapi": "3.0.0",
   "info": {
     "version": "1.0.0",
-    "title": "Cars API",
-    "description": "Cars API registration",
+    "title": "Jobs API",
+    "description": "Jobs API registration",
     "license": {
       "name": "MIT",
       "url": "http://opensource.org/license/MIT"
@@ -21,32 +21,32 @@
 
   "tags": [
     {
-      "name": "Users",
-      "description": "Create user"
+      "name": "Employers",
+      "description": "Create employer"
     },
     {
       "name": "Sessions",
       "description": "Init sessions"
     },
     {
-      "name": "Cars",
-      "description": "API for cars in the system"
+      "name": "Jobs",
+      "description": "CRUD jobs in the system"
     }
   ],
   "consumes": ["application/json"],
   "produces": ["application/json"],
   "paths": {
-    "/users": {
+    "/employers": {
       "post": {
-        "tags": ["Users"],
-        "summary": "Create a new user in system",
+        "tags": ["Employers"],
+        "summary": "Create a new employer in system",
         "requestBody": {
-          "description": "User Object",
+          "description": "Employer Object",
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/definitions/User"
+                "$ref": "#/definitions/Employer"
               }
             }
           }
@@ -60,10 +60,27 @@
             }
           },
           "400": {
-            "description": "User already exists."
+            "description": "Employer already exists."
           },
           "400": {
             "description": "Failed. Bad post data."
+          }
+        }
+      },
+      "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["Employers"],
+        "summary": "Get my profile by token ID",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Employer"
+            }
           }
         }
       }
@@ -92,7 +109,7 @@
             }
           },
           "404": {
-            "description": "Failed, User not found."
+            "description": "Failed, Employer not found."
           },
           "400": {
             "description": "Failed. Bad post data."
@@ -100,22 +117,22 @@
         }
       }
     },
-    "/cars": {
+    "/jobs": {
       "post": {
         "security": [
           {
             "bearerAuth": []
           }
         ],
-        "tags": ["Cars"],
-        "summary": "Create a new car in system",
+        "tags": ["Jobs"],
+        "summary": "Create a new job in system",
         "requestBody": {
-          "description": "Car Object",
+          "description": "Job Object",
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/definitions/Car"
+                "$ref": "#/definitions/Job"
               }
             }
           }
@@ -139,25 +156,28 @@
             "bearerAuth": []
           }
         ],
-        "tags": ["Cars"],
-        "summary": "Get all cars in system",
+        "tags": ["Jobs"],
+        "summary": "Get my Jobs in system",
         "responses": {
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/Cars"
+              "$ref": "#/definitions/Jobs"
             }
+          },
+          "400": {
+            "description": "Failed. Bad post data."
           }
         }
       }
     },
-    "/cars/{id}": {
+    "/Jobs/{id}": {
       "parameters": [
         {
           "name": "id",
           "in": "path",
           "required": true,
-          "description": "ID of the car that we want to match",
+          "description": "ID of the Job that we want to match",
           "type": "string"
         }
       ],
@@ -167,14 +187,14 @@
             "bearerAuth": []
           }
         ],
-        "tags": ["Cars"],
-        "summary": "Get car with given ID",
+        "tags": ["Jobs"],
+        "summary": "Get Job with given ID",
         "parameters": [
           {
             "in": "path",
             "name": "id",
             "required": true,
-            "description": "Car with id",
+            "description": "Job with id",
             "schema": {
               "$ref": "#/definitions/id"
             }
@@ -184,11 +204,11 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/Car"
+              "$ref": "#/definitions/Job"
             }
           },
           "404": {
-            "description": "Failed. Car not found."
+            "description": "Failed. Job not found."
           }
         }
       },
@@ -198,15 +218,15 @@
             "bearerAuth": []
           }
         ],
-        "summary": "Update car with given ID",
-        "tags": ["Cars"],
+        "summary": "Update Job with given ID",
+        "tags": ["Jobs"],
         "requestBody": {
-          "description": "Car Object",
+          "description": "Job Object",
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/definitions/Car"
+                "$ref": "#/definitions/Job"
               }
             }
           }
@@ -216,7 +236,7 @@
             "in": "path",
             "name": "id",
             "required": true,
-            "description": "Car with new values of properties",
+            "description": "Job with new values of properties",
             "schema": {
               "$ref": "#/definitions/id"
             }
@@ -226,14 +246,14 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/Car"
+              "$ref": "#/definitions/Job"
             }
+          },
+          "404": {
+            "description": "Failed. Job not found."
           },
           "400": {
             "description": "Failed. Bad post data."
-          },
-          "404": {
-            "description": "Failed. Car not found."
           }
         }
       },
@@ -243,14 +263,14 @@
             "bearerAuth": []
           }
         ],
-        "summary": "Delete car with given ID",
-        "tags": ["Cars"],
+        "summary": "Delete Job with given ID",
+        "tags": ["Jobs"],
         "parameters": [
           {
             "in": "path",
             "name": "id",
             "required": true,
-            "description": "Delete Car with id",
+            "description": "Delete Job with id",
             "schema": {
               "$ref": "#/definitions/id"
             }
@@ -264,7 +284,24 @@
             }
           },
           "404": {
-            "description": "Failed. Cars not found."
+            "description": "Failed. Jobs not found."
+          }
+        }
+      }
+    },
+    "/alljobs": {
+      "get": {
+        "tags": ["Jobs"],
+        "summary": "Get all Jobs in system",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Jobs"
+            }
+          },
+          "400": {
+            "description": "Failed. Bad post data."
           }
         }
       }
@@ -279,10 +316,10 @@
         }
       }
     },
-    "User": {
+    "Employer": {
       "type": "object",
       "properties": {
-        "name": {
+        "employee_name": {
           "type": "string"
         },
         "email": {
@@ -290,16 +327,25 @@
         },
         "password": {
           "type": "string"
+        },
+        "cpf": {
+          "type": "string"
+        },
+        "UF": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
         }
       }
     },
-    "Users": {
+    "Employers": {
       "type": "object",
       "properties": {
-        "cars": {
+        "Jobs": {
           "type": "object",
           "additionalProperties": {
-            "$ref": "#/definitions/User"
+            "$ref": "#/definitions/Employer"
           }
         }
       }
@@ -318,7 +364,7 @@
     "Sessions": {
       "type": "object",
       "properties": {
-        "cars": {
+        "Jobs": {
           "type": "object",
           "additionalProperties": {
             "$ref": "#/definitions/Session"
@@ -326,36 +372,21 @@
         }
       }
     },
-    "Car": {
+    "Job": {
       "type": "object",
       "properties": {
-        "brand": {
+        "job_description": {
           "type": "string"
-        },
-        "model": {
-          "type": "string"
-        },
-        "year": {
-          "type": "integer"
-        },
-        "fuel": {
-          "type": "string"
-        },
-        "color": {
-          "type": "string"
-        },
-        "price": {
-          "type": "number"
         }
       }
     },
-    "Cars": {
+    "Jobs": {
       "type": "object",
       "properties": {
-        "cars": {
+        "Jobs": {
           "type": "object",
           "additionalProperties": {
-            "$ref": "#/definitions/Car"
+            "$ref": "#/definitions/Job"
           }
         }
       }
