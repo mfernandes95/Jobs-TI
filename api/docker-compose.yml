@@ -1,0 +1,49 @@
+version: "3"
+
+services:
+  db_postgres:
+    networks:
+      - jobsTi
+    restart: on-failure
+    image: postgres:12.1-alpine
+    container_name: postgres_jobsTi
+    environment:
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD:docker
+      - POSTGRES_DB=jobsTi
+    volumes:
+      - ./src/database/postgres:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+
+  # db_mongo:
+  #   container_name: mongo_jobsTi
+  #   image: mongo:3.4.21-xenial
+  #   ports:
+  #     - 27017:27017
+  #   networks:
+  #     - gobarber
+  #   restart: on-failure
+  #   volumes:
+  #     - ./src/database/mongo:/var/lib/mongodb/data
+
+  api_node:
+    build: .
+    networks:
+      - jobsTi
+    links:
+      - db_postgres
+      # - db_mongo
+    depends_on:
+      - db_postgres
+      # - db_mongo
+    container_name: node_jobsTi
+    volumes:
+      - .:/usr/app
+    ports:
+      - 3333:3333
+    command: "sh /usr/app/start.sh"
+    env_file: .dockerenv
+
+networks:
+  jobsTi:

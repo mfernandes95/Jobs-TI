@@ -1,0 +1,1 @@
+docker exec -i node_jobsTi /bin/sh -c "yarn test"
